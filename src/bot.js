@@ -7,6 +7,14 @@ client.config = config;
 
 client.login(config.BOT_SETTINGS.BOT_TOKEN);
 
+var log = require('loglevel');
+log.warn('a');
+log.debug('b');
+log.info('c');
+log.error('d');
+log.trace('e');
+log.log('f');
+
 (async function register_commands(directory = 'commands') {
     const commands_handler = require(`./commands/handler/command_handler.js`);
     const excluded_directories = ['handler'];
@@ -26,12 +34,12 @@ client.login(config.BOT_SETTINGS.BOT_TOKEN);
         }
 })();
 
-(async function registerEvents(directory = 'events') {
+(async function register_events(directory = 'events') {
     let files = await fs.readdirSync(path.join(__dirname, directory));
     for(let file of files) {
         let stat = await fs.lstatSync(path.join(__dirname, directory, file));
         if(stat.isDirectory()) {
-            registerEvents(path.join(directory, file));
+            register_events(path.join(directory, file));
             console.log(`Directory found and registering events: ${path.join(directory, file)}`);
         } else if(file.endsWith(".js")) {
             let event_name = file.substring(0, file.indexOf(".js"));
