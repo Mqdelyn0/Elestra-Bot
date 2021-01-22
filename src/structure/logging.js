@@ -6,36 +6,36 @@ module.exports = {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
         let time = new Date().toUTCString();
         channel.send(`**[INIT - ${time}]** Logging initialized`);
-        console.log(`\033[0;32m[INIT - ${time}] \033[0m${message}`);
+        console.log(`\x1b[32m[INIT - ${time}] \x1b[39mLogging initialized`);
     },
     info: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
         let time = new Date().toUTCString();
-        console.log(`\033[0;32m[INFO - ${time}] \033[0m${message}`);
+        console.log(`\x1b[32m[INFO - ${time}] \x1b[39m${message}`);
         channel.send(`**[INFO - ${time}]:** ${message}`);
     },
     error: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
         let time = new Date().toUTCString();
-        console.log(`\033[0;31m[ERROR - ${time}] \033[0m${message}`);
+        console.log(`\x1b[31m[ERROR - ${time}] \x1b[39m${message}`);
         channel.send(`**[ERROR - ${time}]:** ${message}`);
     },
     debug: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
         let time = new Date().toUTCString();
-        console.log(`\033[0;32m[DEBUG - ${time}] \033[0m${message}`);
+        console.log(`\x1b[33m[DEBUG - ${time}] \x1b[39m${message}`);
         channel.send(`**[DEBUG - ${time}]:** ${message}`);
     },
     warn: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
         let time = new Date().toUTCString();
-        console.log(`\033[0;33m[WARN - ${time}] \033[0m${message}`);
+        console.log(`\x1b[33m[WARN - ${time}] \x1b[39m${message}`);
         channel.send(`**[WARN - ${time}]:** ${message}`);
     },
     start: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
         let time = new Date().toUTCString();
-        console.log(`\033[0;32m[START - ${time}] \033[0m${message}`);
+        console.log(`\x1b[32m[START - ${time}] \x1b[39m${message}`);
         channel.send(`**[START - ${time}]:** ${message}`);
     }
 };
