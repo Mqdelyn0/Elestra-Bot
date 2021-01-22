@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const config = require('../../../config.json');
 
 module.exports = {
     commands: ['botinfo'],
@@ -29,8 +30,8 @@ module.exports = {
                 { name: `Developer`, value: '<@758392553610805308>', inline: true },
                 { name: 'Ping', value: `${client.ws.ping}ms`, inline: true }
             )
-            .setFooter(client.config.BOT_SETTINGS.EMBED_AUTHOR)
-            .setColor(client.config.BOT_SETTINGS.EMBED_COLORS.MAIN);
+            .setFooter(config.BOT_SETTINGS.EMBED_AUTHOR)
+            .setColor(config.BOT_SETTINGS.EMBED_COLORS.MAIN);
 
         return message.channel.send(message_embed);
     }

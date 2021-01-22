@@ -3,7 +3,7 @@
     {
 
         "BOT_TOKEN": "Nzk5MDU3MDIxNDc1MzU2NzAy.X_-B1w.K_W9BpAZO1vtjDMcwTwkY5B1xIA",
-        "MONGODB_URL": "",
+        "MONGODB_URL": "mongodb://Elestra_MongoDB:ADPuYbK9Gw9dbuaeNDbFKNvq7ksR6d@51.79.32.219:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false",
         "GUILD_ID": "798546331852472350",
         "EMBED_AUTHOR": "Coded by Madelyn ✘ elestra.net",
         "PREFIX": "-",
@@ -18,36 +18,22 @@
     {
 
         "WELCOME_LEAVE": "798695767560028180",
-        "BOT_COMMANDS": "772996982381477899",
+        "BOT_COMMANDS": "798695767560028180",
 
         "SUGGESTIONS_CREATE": "798694994415976518",
         "SUGGESTIONS_ACCEPT": "798695087542501456",
-        "SUGGESTIONS_DENIED": "798695087542501456"
+        "SUGGESTIONS_DENIED": "798695087542501456",
+
+        "VERIFICATION": "798937839382298734",
+
+        "ECONOMY_LOGGING": "798685566577016862",
+        "ELESTRA_BOT_LOGGING": "798692806544982046",
+        "PUNISHMENTS_LOGGING": "798692883178848287"
     },
 
     "ROLES": 
     {
 
-    },
-
-    "PERMISSIONS":
-    {
-
-        "ADMINISTRATOR":
-        [
-            "798735232622526504",
-            "798735356975382560",
-            "798735468870762508"
-        ],
-
-        "MODERATOR":
-        [
-            "798735232622526504",
-            "798735356975382560",
-            "798735468870762508",
-            "798735721799090206",
-            "798735958296100904",
-            "798736141586792488"
-        ]
+        "VERIFIED_ROLE": "798740720923705374"
     }
 }
