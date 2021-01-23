@@ -7,7 +7,7 @@ module.exports = {
     min_args: 0,
     max_args: 0,
     permissions: [],
-    required_roles: ["Owner", "Developer"],
+    required_roles: [],
     callback(client, message, arguments, raw_text) {
         const ram_used = Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100;
         const ram_max = Math.round(process.memoryUsage().heapTotal / 1024 / 1024 * 100) / 100;

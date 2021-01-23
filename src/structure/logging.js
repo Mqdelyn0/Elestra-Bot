@@ -4,38 +4,32 @@ const config = require('../../config.json');
 module.exports = {
     init: async(client) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
-        let time = new Date().toUTCString();
-        channel.send(`**[INIT - ${time}]** Logging initialized`);
-        console.log(`\x1b[32m[INIT - ${time}] \x1b[39mLogging initialized`);
+        channel.send(`**[INIT]** Logging initialized`);
+        console.log(`\x1b[32m[INIT] \x1b[39mLogging initialized`);
     },
     info: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
-        let time = new Date().toUTCString();
-        console.log(`\x1b[32m[INFO - ${time}] \x1b[39m${message}`);
-        channel.send(`**[INFO - ${time}]:** ${message}`);
+        console.log(`\x1b[32m[INFO] \x1b[39m${message}`);
+        channel.send(`**[INFO]:** ${message}`);
     },
     error: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
-        let time = new Date().toUTCString();
-        console.log(`\x1b[31m[ERROR - ${time}] \x1b[39m${message}`);
-        channel.send(`**[ERROR - ${time}]:** ${message}`);
+        console.log(`\x1b[31m[ERROR] \x1b[39m${message}`);
+        channel.send(`**[ERROR]:** ${message}`);
     },
     debug: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
-        let time = new Date().toUTCString();
-        console.log(`\x1b[33m[DEBUG - ${time}] \x1b[39m${message}`);
-        channel.send(`**[DEBUG - ${time}]:** ${message}`);
+        console.log(`\x1b[33m[DEBUG] \x1b[39m${message}`);
+        channel.send(`**[DEBUG]:** ${message}`);
     },
     warn: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
-        let time = new Date().toUTCString();
-        console.log(`\x1b[33m[WARN - ${time}] \x1b[39m${message}`);
-        channel.send(`**[WARN - ${time}]:** ${message}`);
+        console.log(`\x1b[33m[WARN] \x1b[39m${message}`);
+        channel.send(`**[WARN]:** ${message}`);
     },
     start: async(client, message) => {
         let channel = client.channels.cache.get(config.CHANNELS.ELESTRA_BOT_LOGGING);
-        let time = new Date().toUTCString();
-        console.log(`\x1b[32m[START - ${time}] \x1b[39m${message}`);
-        channel.send(`**[START - ${time}]:** ${message}`);
+        console.log(`\x1b[32m[START] \x1b[39m${message}`);
+        channel.send(`**[START]:** ${message}`);
     }
 };

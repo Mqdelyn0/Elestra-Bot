@@ -50,7 +50,7 @@ module.exports = (client, command_options) => {
 
     client.on('message', async(message) => {
         const { member, content, guild, channel } = message;
-        if(member.user.bot) {
+        if((!member || !content || !guild || !channel) || member.user.bot) {
             return
         };
 
@@ -58,9 +58,21 @@ module.exports = (client, command_options) => {
         for(const alias of commands) {
             if(content.toLowerCase().startsWith(`${prefix}${alias.toLowerCase()}`)) {
                 
+                // Make arguments split on any number of spaces.
+                const arguments = content.split(/[ ]+/);
+                                
+                // Get rid of the command from the arguments.
+                arguments.shift();
+
+                // Log the executed command
+                logging.info(client, `${member.user.tag} executed command: -${alias} ${arguments.join(' ')}`);
+
                 // Check if the user has one of the required permissions.
                 let perms = 0;
                 let needed_perms = permissions.length;
+                if(needed_perms === 0) {
+                    needed_perms = 1;
+                }
                 for(const permission of permissions) {
                     if(!member.hasPermission(permission)) {
                         perms++;
@@ -80,14 +92,15 @@ module.exports = (client, command_options) => {
                 // Check if the user has one of the required roles.
                 let roles = 0;
                 let needed_roles = required_roles.length;
+                if(needed_roles === 0) {
+                    needed_roles = 1;
+                }
                 for(const required_role of required_roles) {
                     const role = guild.roles.cache.find(check_role => check_role.name === `${required_role}`);
                     if(!role || !member.roles.cache.has(role.id)) {
                         roles++;
                     }
                 }
-
-                channel.send(`${roles} : ${needed_roles}`)
 
                 if(roles >= needed_roles) {
                     const message_embed = new Discord.MessageEmbed()
@@ -98,12 +111,6 @@ module.exports = (client, command_options) => {
 
                     return channel.send(message_embed);
                 }
-                
-                // Make arguments split on any number of spaces.
-                const arguments = content.split(/[ ]+/);
-                
-                // Get rid of the command from the arguments.
-                arguments.shift();
 
                 // Make sure the amount of arguments is the right amount.
                 if(arguments.length < min_args || (arguments.length > max_args && max_args !== null)) {
@@ -115,9 +122,6 @@ module.exports = (client, command_options) => {
 
                     return channel.send(message_embed);
                 }
-
-                // Log the executed command
-                logging.info(client, `${member.user.tag} executed command: -${alias} ${arguments.join(' ')}`);
 
                 // Finally, Run the command's callback function.
                 return callback(client, message, arguments, arguments.join(' '));
