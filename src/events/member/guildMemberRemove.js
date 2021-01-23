@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../../../config.json');
+const logging = require('../../structure/logging.js');
 
 module.exports = async(client, member) => {
     let channel = client.channels.cache.get(config.CHANNELS.WELCOME_LEAVE);
