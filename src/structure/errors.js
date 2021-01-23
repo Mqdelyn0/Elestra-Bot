@@ -7,7 +7,7 @@ module.exports = {
         let channel = client.channels.cache.get(config.CHANNELS.BOT_COMMANDS);
         const message_embed = new Discord.MessageEmbed()
             .setAuthor(`ERROR`, member.user.avatarURL())
-            .setDescription(`${role.name} I couldn't DM you, Please enable your DMs!`)
+            .setDescription(`I couldn't DM you <@${member.id}>, Please enable your DMs!`)
             .setFooter(config.BOT_SETTINGS.EMBED_AUTHOR)
             .setColor(config.BOT_SETTINGS.EMBED_COLORS.ERROR);
 

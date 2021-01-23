@@ -5,13 +5,13 @@ const reaction_role_model = require('../../database_models/reaction_role.js');
 const logging = require('../../structure/logging');
 
 module.exports = async(client, reaction, user) => {
-    if(!client || !reaction || !user) {
-        return;
-    }
     let guild = client.guilds.cache.get(config.BOT_SETTINGS.GUILD_ID);
     let member = guild.members.cache.get(user.id);
+    if(!client || !reaction || !user || !member) {
+        return;
+    }
     let model = await reaction_role_model.findOne({ message_id: reaction.message.id });
-    
+
     if(!model) {
         return;
     } else if(model) {
