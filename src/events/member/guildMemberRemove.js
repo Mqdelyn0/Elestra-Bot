@@ -17,5 +17,5 @@ module.exports = async(client, member) => {
         .setFooter(config.BOT_SETTINGS.EMBED_AUTHOR)
         .setColor(config.BOT_SETTINGS.EMBED_COLORS.MAIN);
     channel.send(message_embed);
-    return logging.info(`${user.tag} left ${guild.name}! There are ${guild.memberCount} members now.`);
+    return logging.info(`${member.user.tag} left ${guild.name}! There are ${guild.memberCount} members now.`);
 }
