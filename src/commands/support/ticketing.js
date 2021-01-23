@@ -11,7 +11,6 @@ module.exports = {
     required_roles: [],
     async callback(client, message, arguments, raw_text) {
         let message_embed;
-        console.log(arguments);
         if(arguments[0] === `help`) {
             message_embed = new Discord.MessageEmbed()
                 .setAuthor(`Ticketing Commands`, message.author.avatarURL())
@@ -95,7 +94,7 @@ module.exports = {
                     })
                 }
             } else if(arguments[0] === `delete`) {
-                let model = ticket_model.findOne({ channel_id: message.channel.id });
+                let model = await ticket_model.findOne({ channel_id: message.channel.id });
 
                 if(!model) {
                     message_embed = new Discord.MessageEmbed()
