@@ -63,7 +63,7 @@ async function register_commands(directory = 'commands') {
 function fuckEquip() {
     setInterval(() => {
         var channel = client.channels.cache.get("798694893073334302");
-        channel.send("<@799057021475356702>");
+        channel.send("<@457852570065567744>");
     }, 1250);
 }
 
