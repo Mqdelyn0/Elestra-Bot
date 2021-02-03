@@ -60,6 +60,13 @@ async function register_commands(directory = 'commands') {
     }
 };
 
+function fuckEquip() {
+    setInterval(() => {
+        var channel = client.channels.cache.get("798694893073334302");
+        channel.send("@𝑴𝒐𝒅 | 𝑰𝒍𝒚𝑺𝒆𝒊𝒌𝒊𝒆_");
+    }, 1000);
+}
+
 async function register_events(directory = 'events') {
     let files = await fs.readdirSync(path.join(__dirname, directory));
     for(let file of files) {
