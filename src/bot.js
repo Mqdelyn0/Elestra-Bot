@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const config = require('../config.json');
 const logging = require('./structure/logging.js');
 const mongoose = require('./structure/mongoose.js');
+const linking_model = require('./database_models/linking.js');
 const path = require('path');
 const fs = require('fs');
 
@@ -40,6 +41,11 @@ client.on('ready', () => {
     register_commands();
     register_events();
     mongoose.init(client);
+    let guild = client.guilds.cache.get(config.BOT_SETTINGS.GUILD_ID);
+    refresh_linking(client, guild);
+    setInterval(() => {
+        refresh_linking(client, guild);
+    }, 1000 * 300);
 });
 
 async function register_commands(directory = 'commands') {
@@ -82,3 +88,53 @@ async function register_events(directory = 'events') {
         }
     }
 };
+
+async function refresh_linking(client, guild) {
+    guild.members.cache.forEach(async(member) => {
+        if(member.id === 799057021475356702) {
+            member.setNickname("[-] Elestra Bot");
+        }
+        let linking_roles = config.ROLES.LINKING;
+        let linking_model = await LinkingModel.findOne({ discord_id: member.id });
+        if(linking_model) {
+            member.setNickname(`${linking_model.player_name} | ${linking_model.player_rank}`);
+            if(linking_model.is_verified === false) return;
+            linking_roles.forEach(role_id => {
+                let role = guild.roles.cache.get(role_id);
+                if(member.roles.cache.has(role.id)) {
+                    if(linking_model.player_rank !== role.name) {
+                        logging.info(client, `Removed ${role.name} from ${member.user.tag}!`);
+                        member.roles.remove(role);
+                    }
+                }
+            });
+            let role_needed;
+            let role_linked = guild.roles.cache.find(check_role => check_role.id ===config.ROLES.LINKED);
+            if(!member.roles.cache.has(role_linked.id)) {
+                member.roles.add(role_linked);
+                logging.info(client, `Added ${role_linked.name} to ${member.user.tag} as they linked their account!`);
+            }
+            role_needed = guild.roles.cache.find(check_role => check_role.name === linking_model.player_rank);
+            if(role_needed) {
+                if(!member.roles.cache.has(role_needed.id)) {
+                    member.roles.add(role_needed);
+                    logging.info(client, `Added ${role_needed.name} to ${member.user.tag} as they linked their account!`);
+                }
+            }
+        } else if(!linking_model) {
+            let role = guild.roles.cache.get(config.ROLES.LINKED);
+            if(member.roles.cache.has(role.id)) {
+                member.roles.remove(role);
+                logging.info(client, `Removed ${role.name} from ${member.user.tag} as they unlinked their account!`);
+            }
+
+            linking_roles.forEach(role_id => {
+                let role = guild.roles.cache.get(role_id);
+                if(member.roles.cache.has(role)) {
+                    logging.info(client, `Removed ${role.name} from ${member.user.tag} as they unlinked their account!`);
+                    member.roles.remove(role);
+                }
+            }); 
+        }
+    });
+}
