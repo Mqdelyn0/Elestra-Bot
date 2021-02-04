@@ -95,14 +95,14 @@ async function refresh_linking(client, guild) {
             member.setNickname("[-] Elestra Bot");
         }
         let linking_roles = config.ROLES.LINKING;
-        let linking_model = await LinkingModel.findOne({ discord_id: member.id });
-        if(linking_model) {
-            member.setNickname(`${linking_model.player_name} | ${linking_model.player_rank}`);
-            if(linking_model.is_verified === false) return;
+        let model = await linking_model.findOne({ discord_id: member.id });
+        if(model) {
+            member.setNickname(`${model.player_name} | ${model.player_rank}`);
+            if(model.is_verified === false) return;
             linking_roles.forEach(role_id => {
                 let role = guild.roles.cache.get(role_id);
                 if(member.roles.cache.has(role.id)) {
-                    if(linking_model.player_rank !== role.name) {
+                    if(model.player_rank !== role.name) {
                         logging.info(client, `Removed ${role.name} from ${member.user.tag}!`);
                         member.roles.remove(role);
                     }
@@ -114,14 +114,14 @@ async function refresh_linking(client, guild) {
                 member.roles.add(role_linked);
                 logging.info(client, `Added ${role_linked.name} to ${member.user.tag} as they linked their account!`);
             }
-            role_needed = guild.roles.cache.find(check_role => check_role.name === linking_model.player_rank);
+            role_needed = guild.roles.cache.find(check_role => check_role.name === model.player_rank);
             if(role_needed) {
                 if(!member.roles.cache.has(role_needed.id)) {
                     member.roles.add(role_needed);
                     logging.info(client, `Added ${role_needed.name} to ${member.user.tag} as they linked their account!`);
                 }
             }
-        } else if(!linking_model) {
+        } else if(!model) {
             let role = guild.roles.cache.get(config.ROLES.LINKED);
             if(member.roles.cache.has(role.id)) {
                 member.roles.remove(role);
